@@ -1,0 +1,46 @@
+generated: '2026-08-05'
+method: searched
+source: https://registry.npmjs.org/-/v1/search?text=wellth
+summary: >-
+  Wellth publishes two packages under its own first-party npm scope, @wellth, both
+  mirroring repositories in the github.com/wellth-app organization. Neither is an
+  API client SDK — they are React Native / Apollo client-side building blocks used
+  by the Wellth member mobile app, and both were last published in April 2022. No
+  Wellth package was found on PyPI, RubyGems, Packagist, crates.io, NuGet, Maven
+  Central or pkg.go.dev. Because Wellth ships no client library for its GraphQL API,
+  no `SDKs` pointer is wired — only `Packages`.
+registries_checked:
+- npm
+- pypi
+- rubygems
+- packagist
+- crates.io
+- nuget
+- maven-central
+- pkg.go.dev
+packages:
+- language: javascript
+  registry: npm
+  name: '@wellth/apollo-offline'
+  version: 1.1.3-1
+  url: https://www.npmjs.com/package/@wellth/apollo-offline
+  repository: https://github.com/wellth-app/apollo-offline
+  install: npm install @wellth/apollo-offline
+  license: ISC
+  description: A redux-offline implementation of Apollo 2.0.
+  kind: client-library
+  api_client: false
+  official: true
+  last_published: '2022-04-07'
+- language: javascript
+  registry: npm
+  name: '@wellth/wellth-react-native-camera'
+  version: 0.0.8
+  url: https://www.npmjs.com/package/@wellth/wellth-react-native-camera
+  repository: https://github.com/wellth-app/wellth-react-native-camera
+  install: npm install @wellth/wellth-react-native-camera
+  kind: mobile-component
+  api_client: false
+  official: true
+  last_published: '2022-04-07'
+sdk_count: 0

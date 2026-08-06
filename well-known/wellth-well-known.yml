@@ -1,0 +1,83 @@
+generated: '2026-08-05'
+method: probed
+source: live probes of the wellthapp.com and api.wellthapp.com hosts
+summary: >-
+  No /.well-known/ discovery document is published on any Wellth host. The API host
+  api.wellthapp.com answers HTTP 200 with an identical text/plain body for EVERY
+  path — a soft-404 catch-all — so the 200s it returns for /.well-known/* are NOT
+  evidence of a published document. This was confirmed by diffing against a random
+  control path, which returned the same body. Nothing is saved to disk and no
+  WellKnown or SecurityTxt pointer is wired.
+soft_404:
+  host: api.wellthapp.com
+  detected: true
+  control_url: https://api.wellthapp.com/zzz-control-notapath
+  control_status: 200
+  body: 'Please use the /graphql route for access to useful data.'
+  note: >-
+    Every probed path on this host returns HTTP 200 with the body above. Only
+    /graphql serves a real application response.
+hosts:
+- host: https://www.wellthapp.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /llms.txt
+    status: 404
+  - path: /openapi.json
+    status: 404
+- host: https://api.wellthapp.com
+  soft_404: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    verdict: soft-404
+  - path: /.well-known/openid-configuration
+    status: 200
+    verdict: soft-404
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    verdict: soft-404
+  - path: /.well-known/api-catalog
+    status: 200
+    verdict: soft-404
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    verdict: soft-404
+  - path: /.well-known/agent-card.json
+    status: 200
+    verdict: soft-404
+  - path: /.well-known/agent.json
+    status: 200
+    verdict: soft-404
+  - path: /openapi.json
+    status: 200
+    verdict: soft-404
+  - path: /swagger.json
+    status: 200
+    verdict: soft-404
+  - path: /v1/openapi.json
+    status: 200
+    verdict: soft-404
+  - path: /api-docs
+    status: 200
+    verdict: soft-404
+  - path: /docs
+    status: 200
+    verdict: soft-404
+  - path: /mcp
+    status: 200
+    verdict: soft-404
+- host: https://www.wellthrewards.com
+  documents:
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+documents: []

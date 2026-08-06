@@ -1,0 +1,51 @@
+generated: '2026-08-05'
+method: searched
+source: https://www.wellthapp.com/privacy-policy
+summary: >-
+  Wellth publishes a HITRUST Certified badge in the footer of every page on
+  wellthapp.com, linking to hitrustalliance.net, and states in its privacy policy
+  that member data is Protected Health Information governed by Business Associate
+  Agreements under HIPAA. No SOC 2, ISO 27001, PCI DSS, FedRAMP or HITRUST scope
+  detail (r2 vs e1 vs i1, certification date, assessor) is published, and there is
+  no trust center. API-level standards conformance could not be assessed: Wellth
+  publishes no OpenAPI, no GraphQL SDL and no reference documentation.
+standards:
+- id: hitrust
+  conforms: true
+  evidence: '"HITRUST Certified" badge in the site footer linking to https://hitrustalliance.net/'
+  detail_published: false
+  note: Certification level, scope and date are not published.
+- id: hipaa
+  conforms: true
+  evidence: >-
+    Privacy policy: "The information governed by the Business Associate Agreements
+    (BAAs) between Wellth and our customers is considered Protected Health
+    Information (PHI) under the Health Insurance Portability and Accountability Act
+    (HIPAA)."
+- id: soc2
+  conforms: false
+  evidence: No SOC 2 claim found on wellthapp.com.
+- id: iso-27001
+  conforms: false
+  evidence: No ISO 27001 claim found on wellthapp.com.
+- id: graphql
+  conforms: true
+  evidence: >-
+    api.wellthapp.com/graphql is a spec-compliant GraphQL endpoint (Apollo Server);
+    it returned GRAPHQL_VALIDATION_FAILED against a real Query type.
+- id: graphql-introspection
+  conforms: false
+  evidence: >-
+    Introspection is disabled in production (INTROSPECTION_DISABLED), so the schema
+    is not machine-readable by any anonymous client.
+- id: oauth2
+  conforms: unknown
+  evidence: No public authentication documentation; no OAuth metadata document served.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: >-
+    Errors use the GraphQL errors[] envelope with extensions.code, not
+    application/problem+json.
+- id: fhir
+  conforms: unknown
+  evidence: No FHIR claim or resource shape observed on any public surface.

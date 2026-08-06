@@ -1,0 +1,54 @@
+generated: '2026-08-05'
+method: probed
+source: https://api.wellthapp.com/graphql
+format: graphql-errors
+summary: >-
+  Wellth publishes no error reference. The entries below are error codes OBSERVED
+  directly from the live GraphQL endpoint during discovery — they are not a complete
+  catalog, and application-level errors behind authentication could not be reached.
+  All errors are returned with HTTP 200 or HTTP 400 and a GraphQL `errors[]`
+  envelope carrying `extensions.code`.
+envelope:
+  field: errors
+  code_path: errors[].extensions.code
+  message_path: errors[].message
+  location_path: errors[].locations
+problems:
+- code: BAD_REQUEST
+  http_status: 400
+  title: Request blocked as potential CSRF
+  detail: >-
+    Apollo Server CSRF prevention rejected the request because it carried neither a
+    non-simple content-type nor an x-apollo-operation-name / apollo-require-preflight
+    header.
+  remediation: >-
+    Send Content-Type: application/json, or set the apollo-require-preflight header.
+  observed: true
+- code: GRAPHQL_VALIDATION_FAILED
+  http_status: 200
+  title: Query failed schema validation
+  detail: >-
+    The requested field does not exist on the target type (e.g. 'Cannot query field
+    "me" on type "Query".'). Confirms a real, schema-backed Query type.
+  remediation: >-
+    Query only fields present in the schema. The schema is not published and
+    introspection is disabled, so field discovery requires provider-supplied docs.
+  observed: true
+- code: GRAPHQL_VALIDATION_FAILED
+  sub_code: INTROSPECTION_DISABLED
+  http_status: 200
+  title: Introspection disabled
+  detail: >-
+    'GraphQL introspection is not allowed by Apollo Server, but the query contained
+    __schema or __type.'
+  remediation: >-
+    No anonymous remedy. The SDL is unavailable without Wellth enabling introspection
+    or publishing a schema.
+  observed: true
+notes:
+- >-
+  Error responses include a server-side `extensions.stacktrace` array revealing
+  internal filesystem paths. Recorded in conventions/wellth-conventions.yml.
+- >-
+  This catalog is deliberately partial. Only anonymously reachable errors are listed;
+  nothing was inferred or invented.

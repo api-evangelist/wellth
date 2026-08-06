@@ -1,0 +1,78 @@
+generated: '2026-08-05'
+method: probed
+source: https://api.wellthapp.com/graphql
+summary: >-
+  Wellth publishes no API documentation, so every convention recorded here was
+  observed directly from the live endpoint's responses — not read from a docs page.
+  The surface is a single GraphQL endpoint served by Apollo Server. Introspection is
+  disabled, so the schema, field names, arguments and auth model are not knowable
+  anonymously; only transport-level behaviour is observable.
+surface:
+  style: graphql
+  endpoint: https://api.wellthapp.com/graphql
+  server: Apollo Server
+  internal_app: apiv4
+  http_methods_accepted: [POST]
+  non_graphql_paths: >-
+    Every other path on api.wellthapp.com returns HTTP 200 text/plain with
+    "Please use the /graphql route for access to useful data." — a soft-404
+    catch-all, not a resource.
+authentication:
+  documented: false
+  scheme: unknown
+  note: >-
+    No public auth documentation and no /.well-known/ OAuth or OIDC metadata. The
+    schema could not be introspected, so it is not possible to determine anonymously
+    which fields require credentials.
+csrf_prevention:
+  enabled: true
+  mechanism: Apollo Server CSRF prevention
+  observed_error: >-
+    "This operation has been blocked as a potential Cross-Site Request Forgery
+    (CSRF). Please either specify a 'content-type' header (with a type that is not
+    one of application/x-www-form-urlencoded, multipart/form-data, text/plain) or
+    provide a non-empty value for one of the following headers:
+    x-apollo-operation-name, apollo-require-preflight"
+  required_headers_any_of:
+  - content-type (a type other than application/x-www-form-urlencoded, multipart/form-data,
+    text/plain)
+  - x-apollo-operation-name
+  - apollo-require-preflight
+introspection:
+  enabled: false
+  observed_code: INTROSPECTION_DISABLED
+error_envelope:
+  format: graphql-errors
+  shape: '{ "errors": [ { "message", "locations": [], "extensions": { "code", "stacktrace" } } ] }'
+  code_field: errors[].extensions.code
+  note: >-
+    Responses include a full server-side `stacktrace` array in `extensions`, exposing
+    internal file paths (/app/apiv4/node_modules/...). This is Apollo's development
+    behaviour and is unusual to leave enabled on a production, PHI-adjacent endpoint.
+idempotency:
+  supported: unknown
+  documented: false
+  note: >-
+    No idempotency key header is documented and none could be inferred without the
+    schema. No Idempotency pointer is wired.
+pagination:
+  style: unknown
+  documented: false
+versioning:
+  style: unpublished
+  note: See lifecycle/wellth-lifecycle.yml
+rate_limits:
+  documented: false
+  headers_observed: []
+file_uploads:
+  supported: likely
+  evidence: >-
+    Wellth publishes @wellth/apollo-offline and forks react-native-background-upload
+    to build "multipart upload requests conforming to graphQL multipart upload spec"
+    (github.com/wellth-app/apollo-link-background-upload) — consistent with the
+    daily photo check-in flow.
+cross_links:
+  errors: errors/wellth-problem-types.yml
+  lifecycle: lifecycle/wellth-lifecycle.yml
+  security: security/wellth-domain-security.yml
+  packages: packages/wellth-packages.yml
