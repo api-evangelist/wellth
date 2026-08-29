@@ -12,6 +12,17 @@ description: 'Wellth is a digital health company that applies behavioral economi
   publishes an Atlassian status page whose components include "Wellth API". The API
   is not accompanied by a public developer portal, reference documentation or machine-readable
   contract, and GraphQL introspection is disabled in production.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.wellthapp.com/images/uploads/brand/wellth-social-image.png
 url: https://raw.githubusercontent.com/api-evangelist/wellth/refs/heads/main/apis.yml
 x-type: company
